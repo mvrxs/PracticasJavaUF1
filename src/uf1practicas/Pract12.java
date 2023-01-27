@@ -1,6 +1,5 @@
 package uf1practicas;
 
-import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class Pract12 {
@@ -39,6 +38,7 @@ public class Pract12 {
                 case 7 -> Ex7();
                 case 8 -> Ex8();
                 case 9 -> Ex9();
+                case 10 -> Ex10();
                 case 0 -> {
                     System.out.println("Good Bye");
                     System.exit(0);
@@ -256,38 +256,65 @@ public class Pract12 {
 
         int NUMBERS = 10;
         int[] listNum = new int[NUMBERS];
-        boolean isPrime;
-        int aux = 0;
-        int x = 0;
+        boolean isPrime = false;
+        int cont = 0;
+
+
         System.out.println("Insert 10 numbers:");
-//ESCRIBIMOS VALORES DEL ARRAY
-        for (int i = 0; i < listNum.length; i++) {
-            //listNum[i] = sc.nextInt();
-            listNum[i] = (int) (Math.random() * 100 + 2);
+
+        while (cont < listNum.length) {
+            //listNum[cont] = (int) (Math.random() * 100 + 0);
+            listNum[cont] = sc.nextInt();
+            cont++;
         }
-//PRINTAMOS VALORES ESCRITOS DEL ARRAY JUNTO CON SU INDICE
         for (int i = 0; i < listNum.length; i++) {
             System.out.println(i + "-->" + listNum[i]);
         }
-////COMPROBAMOS CUALES SON PRIMOS Y LOS PONEMOS AL INICIO DEL ARRAY
+
+        cont = 0;
+
+        int[] aux = new int[20];
+
+        int contAux = 0;
+
         for (int i = 0; i < listNum.length; i++) {
             isPrime = true;
-            for (int j = 2; j * j < listNum[i]; j++) {
+            for (int j = 2; j < listNum[i] - 1; j++) {
                 if (listNum[i] % j == 0) {
                     isPrime = false;
-                    break;
                 }
-            }
-            if (isPrime) {
-                aux = listNum[i];
-                listNum[x] = listNum[i];
-                listNum[i] = aux;
-                x++;
-                System.out.print(listNum[i] + " ");
+                if (!isPrime) {
+                    aux[contAux] = listNum[i];
+                    listNum[i] = -1;
+                    contAux++;
+                }
             }
         }
 
+        for (int i = 0; i < listNum.length; i++) {
+            if (listNum[i] != -1) {
+                int leftOver = listNum[i];
+                for (int j = 0; j < i; j++) {
+                    if (listNum[i - j - 1] == -1) {
+                        listNum[i - j - 1] = leftOver;
+                        listNum[i - j] = -1;
+                    }
+                }
+            }
+        }
+        int j = 0;
+        for (int i = 0; i < listNum.length; i++) {
+            if (listNum[i] == -1) {
+                listNum[i] = aux[j];
+                j++;
+            }
+        }
+        System.out.println("\n");
+        for (int i = 0; i < listNum.length; i++) {
+            System.out.println(i + "-->" + listNum[i] + " ");
+        }
     }
+
 
     static void Ex9() {
 
@@ -297,10 +324,113 @@ public class Pract12 {
 
         int NUMBER = 10;
         int[] listNum = new int[NUMBER];
+        int[] finalList = new int[NUMBER];
+        int first;
+        int last;
+
 
         System.out.println("Insert 10 numbers:");
+
+        for (int i = 0; i < listNum.length; i++) {
+            listNum[i] = sc.nextInt();
+            //listNum[i] = (int) (Math.random() * 100 + 2);
+        }
+
+        for (int i = 0; i < listNum.length; i++) {
+            System.out.println(i + "-->" + listNum[i]);
+        }
+
+        boolean positions;
+        do {
+            System.out.print("Insert initial position from 0 to 9: ");
+            first = sc.nextInt();
+
+            System.out.print("Insert last position from 0 to 9 distinct from first : ");
+            last = sc.nextInt();
+            if (first < last && first >= 0 && last <= 9) {
+                positions = true;
+
+                int initalNum = listNum[first];
+
+                finalList[last] = initalNum;
+
+                for (int i = last; i < listNum.length - 1; i++) {
+                    finalList[i + 1] = listNum[i];
+                }
+
+                finalList[0] = listNum[listNum.length - 1];
+
+                for (int i = 1; i < listNum.length; i++) {
+                    finalList[i] = listNum[i - 1];
+                }
+
+                for (int i = 0; i < finalList.length; i++) {
+                    System.out.println(i + "-->" + finalList[i]);
+                }
+
+            } else {
+                System.out.println("[ERROR] initial position must be lower than last and between from 0 to 9");
+                System.out.println("TRY AGAIN");
+                positions = false;
+            }
+        } while (!positions);
+
+
+    }
+
+    static void Ex10() {
+
+        System.out.println("\n");
+        System.out.println("---------- EXERCISE 10 ----------\n");
+        System.out.println();
+
+        int WORDS = 8;
+        int aux = 0;
+
+        String[] word = new String[WORDS];
+        String[] result = new String[WORDS];
+        String[] color = {"green", "red", "blue", "yellow", "orange", "pink", "black", "white", "purple"};
+
+        System.out.println("Insert 8 words like colors or whatever you want: ");
+
+        for (int i = 0; i < word.length; i++) {
+            word[i] = sc.next();
+            for (String c : color) {
+                if (word[i].equals(c)) {
+                    result[aux++] = c;
+                }
+            }
+        }
+
+        for (int i = 0; i < word.length; i++) {
+            System.out.println(i + "-->" + word[i]);
+        }
+
+        for (int i = 0; i < 8; i++) {
+            boolean isColor = false;
+
+            for (String c : color) {
+                if (word[i].equals(c)) {
+                    isColor = true;
+                }
+            }
+            if (!isColor) {
+                result[aux++] = word[i];
+            }
+            for (i = 0; i < result.length; i++) {
+                for (String r : result) {
+                    System.out.println(i + "-->" + r);
+                }
+
+            }
+        }
     }
 }
+
+
+
+
+
 
 
 
