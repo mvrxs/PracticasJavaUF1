@@ -22,6 +22,9 @@ public class Pract12 {
             System.out.println("[5]- Exercise 05");
             System.out.println("[6]- Exercise 06");
             System.out.println("[7]- Exercise 07");
+            System.out.println("[7]- Exercise 08");
+            System.out.println("[7]- Exercise 09");
+            System.out.println("[7]- Exercise 10");
             System.out.println("[0]- Exit \n");
 
             System.out.print("Select an exercise: ");
@@ -406,6 +409,8 @@ public class Pract12 {
             System.out.println(i + "-->" + word[i]);
         }
 
+        System.out.print("\n--------------\n");
+
         for (int i = 0; i < 8; i++) {
             boolean isColor = false;
 
@@ -417,12 +422,9 @@ public class Pract12 {
             if (!isColor) {
                 result[aux++] = word[i];
             }
-            for (i = 0; i < result.length; i++) {
-                for (String r : result) {
-                    System.out.println(i + "-->" + r);
-                }
 
-            }
+            System.out.println(i + "-->" + result[i]);
+
         }
     }
 }
