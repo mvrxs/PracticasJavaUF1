@@ -1,5 +1,6 @@
 package uf1practicas;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Pract13 {
@@ -7,7 +8,7 @@ public class Pract13 {
     static Scanner sc = new Scanner(System.in);
 
     static void Ex1() {
-        //sc.useDelimiter(" ");
+
         /*
         Define un array de números enteros de 3 filas por 6 columnas con nombre num y asigna los
         valores según la siguiente tabla. Muestra el contenido de todos los elementos del array
@@ -36,6 +37,36 @@ public class Pract13 {
     }
 
     static void Ex2() {
+
+        /*
+        Escribe un programa que pida 20 números enteros. Estos números se deben introducir en un
+        array de 4 filas por 5 columnas. El programa mostrará las sumas parciales de filas y columnas
+        igual que si de una hoja de cálculo se tratara. La suma total debe aparecer en la esquina
+        inferior derecha.
+         */
+        int ROW = 4;
+        int COLUMN = 5;
+        int[][] num = new int[ROW][COLUMN];
+
+        System.out.println("Insert the values for rows: ");
+        for (int i = 0; i < ROW; i++) {
+            for (int j = 0; j < COLUMN; j++) {
+                //num[i][j] = sc.nextInt();
+                num[i][j] = (int) (Math.random() * 100 + 0);
+            }
+        }
+        for (int i = 0; i < ROW; i++) {
+            int sumRow = 0;
+            for (int j = 0; j < COLUMN; j++) {
+                sumRow += num[i][j];
+                System.out.printf("%-10d", num[i][j]);
+            }
+            System.out.println(sumRow);
+            System.out.println();
+        }
+
+        //for (int )
+
     }
 
     static void Ex3() {
